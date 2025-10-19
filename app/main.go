@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io"
+	//"io"
 	"os"
-	"os/exec"
+	//"os/exec"
 	"strings"
 )
 
@@ -18,7 +18,7 @@ func main() {
 	//// Wait for user input
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
-		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
+		command, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 		args := strings.Fields(command)
 		switch args[0] {
 
@@ -30,15 +30,28 @@ func main() {
 			output := strings.Join(args[1:len(args)], " ")
 			fmt.Println(output)
 			continue
+		case "type":
+			switch args[1] {
+			case "exit":
+				fmt.Println("exit is a shell builtin")
+			case "echo":
+				fmt.Println("echo is a shell builtin")
+			case "type":
+				fmt.Println("type is a shell builtin")
+			default:
+				fmt.Println(args[1] + ": not found")
+				//}
 
-		default:
-			cmd := exec.Command(args[0], args[1:]...)
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = io.Discard
-			err = cmd.Run()
-			if err != nil {
-				fmt.Println(command[:len(command)-1] + ": command not found")
 			}
+
+			//default:
+			//	cmd := exec.Command(args[0], args[1:]...)
+			//	cmd.Stdout = os.Stdout
+			//	cmd.Stderr = io.Discard
+			//	err = cmd.Run()
+			//	if err != nil {
+			//		fmt.Println(command[:len(command)-1] + ": command not found")
+			//	}
 		}
 
 	}
