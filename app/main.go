@@ -3,6 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
+	"os/exec"
+
 	//"io"
 	"os"
 	//"os/exec"
@@ -18,7 +21,7 @@ func main() {
 	//// Wait for user input
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
-		command, _ := bufio.NewReader(os.Stdin).ReadString('\n')
+		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
 		args := strings.Fields(command)
 		switch args[0] {
 
@@ -44,14 +47,14 @@ func main() {
 
 			}
 
-			//default:
-			//	cmd := exec.Command(args[0], args[1:]...)
-			//	cmd.Stdout = os.Stdout
-			//	cmd.Stderr = io.Discard
-			//	err = cmd.Run()
-			//	if err != nil {
-			//		fmt.Println(command[:len(command)-1] + ": command not found")
-			//	}
+		default:
+			cmd := exec.Command(args[0], args[1:]...)
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = io.Discard
+			err = cmd.Run()
+			if err != nil {
+				fmt.Println(command[:len(command)-1] + ": command not found")
+			}
 		}
 
 	}
