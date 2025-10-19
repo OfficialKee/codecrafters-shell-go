@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
@@ -20,6 +21,7 @@ func main() {
 		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
 		args := strings.Fields(command)
 		switch args[0] {
+
 		case "exit":
 			if args[1] == "0" {
 				break
@@ -32,7 +34,7 @@ func main() {
 		default:
 			cmd := exec.Command(args[0], args[1:]...)
 			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
+			cmd.Stderr = io.Discard
 			err = cmd.Run()
 			if err != nil {
 				fmt.Println(command[:len(command)-1] + ": command not found")
