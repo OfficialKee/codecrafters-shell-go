@@ -26,7 +26,7 @@ func main() {
 		switch args[0] {
 
 		case "exit":
-			if args[1] == nil {
+			if args[1] == "" {
 				break
 			}
 		case "echo":
