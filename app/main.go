@@ -32,23 +32,21 @@ func main() {
 			fmt.Println(output)
 			continue
 		case "type":
-			result, err := exec.LookPath(args[1])
-			if err != nil {
-				fmt.Println(args[1] + ": not found")
-			} else {
-				fmt.Println(args[1] + " is " + result)
+			switch args[1] {
+			case "exit":
+				fmt.Println("exit is a shell builtin")
+			case "echo":
+				fmt.Println("echo is a shell builtin")
+			case "type":
+				fmt.Println("type is a shell builtin")
+			default:
+				result, err := exec.LookPath(args[1])
+				if err != nil {
+					fmt.Println(args[1] + ": not found")
+				} else {
+					fmt.Println(args[1] + " is " + result)
+				}
 			}
-			//switch args[1] {
-			//case "exit":
-			//	fmt.Println("exit is a shell builtin")
-			//case "echo":
-			//	fmt.Println("echo is a shell builtin")
-			//case "type":
-			//	fmt.Println("type is a shell builtin")
-			//default:
-			//	fmt.Println(args[1] + ": not found")
-			//
-			//}
 
 		default:
 			cmd := exec.Command(args[0], args[1:]...)
