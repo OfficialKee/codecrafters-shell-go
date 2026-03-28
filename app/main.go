@@ -26,9 +26,7 @@ func main() {
 		switch args[0] {
 
 		case "exit":
-			if args[1] == "" {
-				break
-			}
+			break
 		case "echo":
 			output := strings.Join(args[1:len(args)], " ")
 			fmt.Println(output)
