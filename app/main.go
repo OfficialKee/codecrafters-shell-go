@@ -10,6 +10,8 @@ import (
 	"os"
 	//"os/exec"
 	"strings"
+
+	shell "github.com/codecrafters-io/shell-starter-go/app/checkType"
 )
 
 func main() {
@@ -32,23 +34,8 @@ func main() {
 			fmt.Println(output)
 			continue
 		case "type":
-			switch args[1] {
-			case "exit":
-				fmt.Println("exit is a shell builtin")
-			case "echo":
-				fmt.Println("echo is a shell builtin")
-			case "type":
-				fmt.Println("type is a shell builtin")
-			case "pwd":
-				fmt.Println("pwd is a shell builtin")
-			default:
-				result, err := exec.LookPath(args[1])
-				if err != nil {
-					fmt.Println(args[1] + ": not found")
-				} else {
-					fmt.Println(args[1] + " is " + result)
-				}
-			}
+			result := shell.CheckType(args[1])
+			fmt.Println(result)
 		case "pwd":
 			result, err := os.Getwd()
 			if err != nil {
