@@ -50,7 +50,11 @@ func main() {
 				}
 			}
 		case "pwd":
-			fmt.Println(os.Getwd())
+			result, err := os.Getwd()
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println(result)
 
 		default:
 			cmd := exec.Command(args[0], args[1:]...)
