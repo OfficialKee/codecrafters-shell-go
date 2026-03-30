@@ -23,10 +23,11 @@ func main() {
 	//// Wait for user input
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
-		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
-		args := strings.Fields(command)
-		switch args[0] {
+		commands, err := bufio.NewReader(os.Stdin).ReadString('\n')
+		args := strings.Fields(commands)
+		command := args[0]
 
+		switch command {
 		case "exit":
 			os.Exit(0)
 		case "echo":
@@ -42,9 +43,14 @@ func main() {
 				fmt.Println(err)
 			}
 			fmt.Println(result)
-
+		case "cd":
+			if _, err := os.Stat(args[1]); os.IsNotExist(err) {
+				fmt.Println("cd: no such file or directory")
+				continue
+			}
+			os.Chdir(args[1])
 		default:
-			cmd := exec.Command(args[0], args[1:]...)
+			cmd := exec.Command(command, args[1:]...)
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = io.Discard
 			err = cmd.Run()
