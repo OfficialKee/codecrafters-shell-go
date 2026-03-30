@@ -45,7 +45,7 @@ func main() {
 			fmt.Println(result)
 		case "cd":
 			if _, err := os.Stat(args[1]); os.IsNotExist(err) {
-				fmt.Println("cd: " + args[1] + " no such file or directory")
+				fmt.Println("cd: " + args[1] + ": No such file or directory")
 				continue
 			}
 			os.Chdir(args[1])
