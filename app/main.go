@@ -55,7 +55,7 @@ func main() {
 			cmd.Stderr = io.Discard
 			err = cmd.Run()
 			if err != nil {
-				fmt.Println(command[:len(command)-1] + ": command not found")
+				fmt.Println(command[:len(command)] + ": command not found")
 			}
 		}
 
