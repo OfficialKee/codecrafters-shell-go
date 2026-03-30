@@ -39,6 +39,8 @@ func main() {
 				fmt.Println("echo is a shell builtin")
 			case "type":
 				fmt.Println("type is a shell builtin")
+			case "pwd":
+				fmt.Println(os.Getwd())
 			default:
 				result, err := exec.LookPath(args[1])
 				if err != nil {
